@@ -80,7 +80,7 @@ export class MapComponent implements OnInit {
 
   // MAP com função anonima
   numerosMap = this.numeros.map(function (numero) {
-    console.log('Var Numero do Map', numero); // simplemente repete o valores do array
+   // console.log('Var Numero do Map', numero); // simplemente repete o valores do array
     return numero * 2;
   });
   // MAP com Arrow Function
