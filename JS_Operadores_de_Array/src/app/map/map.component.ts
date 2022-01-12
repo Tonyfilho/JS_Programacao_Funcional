@@ -64,10 +64,10 @@ export class MapComponent implements OnInit {
     // console.log('MapArrayIdade : ' ,this.mapArrayIdate);
     // console.log('Menor : ' ,this.mapArrayMenorQ18Filtrado);
     // console.log('Maior : ' ,this.mapArrayMaiorQ18Filtrado);
-   // console.log('Var Numero do Map x 2', this.numerosMap); // Valores Mapeados com função anonima
-   // console.log('Nomes LowCase', this.nomesLowcase); // Valores Map transformados em Lowcase
-   console.table(this.celsiusArrow);
-   console.table(this.celsiusFuncAnonima);
+    // console.log('Var Numero do Map x 2', this.numerosMap); // Valores Mapeados com função anonima
+    // console.log('Nomes LowCase', this.nomesLowcase); // Valores Map transformados em Lowcase
+    // console.table(this.celsiusArrow);
+    //console.table(this.celsiusFuncAnonima);
   }
   /**No MAP passamos uma função de callback, onde vai INTERAR por cada item do Array mapeado */
   mapArrayIdate = this.pessoas.map((age) => age.idade > 18);
@@ -89,12 +89,13 @@ export class MapComponent implements OnInit {
   // MAP vou transformar o Array nomes que é upcase em lowcase
   nomesLowcase = this.nomes.map((arrayElem) => arrayElem.toLowerCase());
 
- // MAP conversor de celsius para fahrenheit
+  // MAP conversor de celsius para fahrenheit
 
- celsiusArrow = this.fahrenheit.map(elem => Math.round((elem -32) * 5/9) ); //Arrow Function
- celsiusFuncAnonima = this.fahrenheit.map(function(elem){ // Função anonima
-   return Math.round((elem - 32) * 5/9);
- })
-
-
+  celsiusArrow = this.fahrenheit.map((elem) =>
+    Math.round(((elem - 32) * 5) / 9)
+  ); //Arrow Function
+  celsiusFuncAnonima = this.fahrenheit.map(function (elem) {
+    // Função anonima
+    return Math.round(((elem - 32) * 5) / 9);
+  });
 }
