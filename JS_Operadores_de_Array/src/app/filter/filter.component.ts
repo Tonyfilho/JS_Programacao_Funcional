@@ -57,4 +57,6 @@ export class FilterComponent implements OnInit {
   // Filtrando e Removendo Numeros Duplicados
   removeNumerosDuplicados = this.arrayDuplicados.filter((elem, index, array) => array.indexOf(elem) === index);
 
+// const [nome1: any, nome2: any, nome3: any, nome4: any]  = this.nomes;
+
 }
