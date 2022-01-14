@@ -40,7 +40,29 @@ export class ReduceComponent implements OnInit {
     { country: 'India', launches: 4 },
     { country: 'Japan', launches: 3 }
   ];
-  constructor() { }
+  constructor() {
+
+
+    function programacaoImperativa(params: any = [{}]): any {
+      //OBS: Falta por Filtros se o Objeto PARÁMENTRO aqui chamado de params EXISTE, Outro IF e ELSE; tudo isto aninhado. 
+      //Obs: Falta por FILTROS (IF , ELSE IF E ELSE), para checar se este NOVO Objeto já Existe.
+      // Para funcionar sem estes Blocos, tive q por no Objeto masculinoOuFeminino masculino: ['AQUI'], feminino: ['AQUI'] strings vazias.
+      // Com isto o console.log() desta função, vai ter 'strings vazias' no index 0,
+      // Em outras palavras, este simples codigo ficaria muito, mas muito grande.
+      const masculinoOuFeminino = {masculino: [''], feminino: ['']};      
+      params.forEach((element: any) => {        
+          if (element.sexo == 'M') {            
+            masculinoOuFeminino.masculino.push(element)
+          }
+          if (element.sexo == 'F') {
+            masculinoOuFeminino.feminino.push(element)
+          }
+      });   
+ 
+     return masculinoOuFeminino;
+   }
+   console.log('Programação Imperativa',programacaoImperativa(this.pessoas));
+   }
 
   ngOnInit(): void {
     console.log('ArrowFunction', this.lancamentos);
@@ -50,10 +72,15 @@ export class ReduceComponent implements OnInit {
     console.table(this.maiorDe18);
     console.table(this.maioresDe18Maculinos);
     console.table(this.maioresDe18Femeas);
+    console.table(this.maioresEMenores);
+    console.table(this.masculinoOuFeminino);
+    
 
   }
+  
 
   // O REDUCE() Recebe um Array e retorna qualquer coisa, seja um PRIMITIVO ou OBJECTO ou ARRAY ou OBSERVABLE
+  // ESTAMOS ESTUDANDO PROGRAMAÇÃO FUNCIONAL  ao invez de programação IMPERATIVA.
 
   // Neste exemplo, iremos SOMAR o total de laçamentos de foguetes
   lancamentos = this.rockets.reduce((newValue, actualArray) => newValue + actualArray.launches, 0);
@@ -100,4 +127,20 @@ export class ReduceComponent implements OnInit {
     actualPessoas.idade >= 18 && actualPessoas.sexo === 'F' ? newArray.maioresDe18Femeas.push(actualPessoas): '';
     return newArray;
   }, {maioresDe18Femeas: []})
+  //REDUCE maiores e menores usando a propriedade do objeto
+  maioresEMenores = this.pessoas.reduce((newArray: any, actualArray) => {
+    const idade = actualArray.idade >= 18 ? 'maiores' : 'menores';
+    newArray[idade].push(actualArray);
+    
+    return newArray;},{maiores: [] , menores:[]});
+
+  masculinoOuFeminino = this.pessoas.reduce((newArray: any, actualArray) => {
+    const sexo = actualArray?.sexo === 'M' ? 'M': 'F';
+    newArray[sexo].push(actualArray);        
+    return newArray}, {M:[], F:[]});
+
+  
+
+ 
+
 }
