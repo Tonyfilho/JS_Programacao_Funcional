@@ -40,6 +40,10 @@ export class ReduceComponent implements OnInit {
     { country: 'India', launches: 4 },
     { country: 'Japan', launches: 3 }
   ];
+  numeros = [2, 4, 5, 7, 8, 77, 0];
+  nomes = ['ANTONIO', 'DEBORA', 'JUAN', 'RAQUEL'];
+  fahrenheit = [-10, -2, -3, 10, 50, 150, 669];
+
   constructor() {
 
 
@@ -61,19 +65,24 @@ export class ReduceComponent implements OnInit {
  
      return masculinoOuFeminino;
    }
-   console.log('Programação Imperativa',programacaoImperativa(this.pessoas));
+  //  console.log('Programação Imperativa',programacaoImperativa(this.pessoas));
    }
 
   ngOnInit(): void {
-    console.log('ArrowFunction', this.lancamentos);
-    console.log('AnonymousFunction', this.lancamentos2);
-    console.table(this.sexoMouF);
-    console.table(this.sexoMouF2);
-    console.table(this.maiorDe18);
-    console.table(this.maioresDe18Maculinos);
-    console.table(this.maioresDe18Femeas);
-    console.table(this.maioresEMenores);
-    console.table(this.masculinoOuFeminino);
+    // console.log('ArrowFunction', this.lancamentos);
+    // console.log('AnonymousFunction', this.lancamentos2);
+    // console.table(this.sexoMouF);
+    // console.table(this.sexoMouF2);
+    // console.table(this.maiorDe18);
+    // console.table(this.maioresDe18Maculinos);
+    // console.table(this.maioresDe18Femeas);
+    // console.table(this.maioresEMenores);
+    //  console.table(this.masculinoOuFeminino);    
+    //  console.table(this.valorMultiplicado);
+    //  console.log(this.maioresDe18EFeminino);
+    
+    //  console.log(this.filtromaiorEFeminino);
+    console.log(this.exercicioMascOuFem);
     
 
   }
@@ -117,30 +126,62 @@ export class ReduceComponent implements OnInit {
     actualArray.idade >= 18 ? newArray.maior.push(actualArray):''
     return newArray;
   }, {maior: []});
+
    //REDUCE() e Ternario, somente maiores de 18 e Homens anonymous functions
   maioresDe18Maculinos = this.pessoas.reduce(function(newArray: any, actualArray){
      actualArray.idade >= 18 && actualArray.sexo === 'M'? newArray.maiorEMasculino.push(actualArray): '';
     return newArray;
   }, {maiorEMasculino: []});
+
    //REDUCE() e Ternario, somente maiores de 18 e Mulheres Arrow Functions
   maioresDe18Femeas = this.pessoas.reduce((newArray: any, actualPessoas) => {
     actualPessoas.idade >= 18 && actualPessoas.sexo === 'F' ? newArray.maioresDe18Femeas.push(actualPessoas): '';
     return newArray;
   }, {maioresDe18Femeas: []})
+
   //REDUCE maiores e menores usando a propriedade do objeto
   maioresEMenores = this.pessoas.reduce((newArray: any, actualArray) => {
     const idade = actualArray.idade >= 18 ? 'maiores' : 'menores';
     newArray[idade].push(actualArray);
     
     return newArray;},{maiores: [] , menores:[]});
-
+// REDUCE Filtrando Masculino e Feminino Usando Anonymous Function
   masculinoOuFeminino = this.pessoas.reduce((newArray: any, actualArray) => {
     const sexo = actualArray?.sexo === 'M' ? 'M': 'F';
     newArray[sexo].push(actualArray);        
     return newArray}, {M:[], F:[]});
 
-  
+// REDUCE e SPREAD ex:01 multiplicando o valor do array por 2
+  valorMultiplicado = this.numeros.reduce((newArray: any, actualArray) => {      
+    return [...newArray, actualArray * 2];
+  }, [])
 
+//Reduce com spread
+// maioresDe18EFeminino = this.pessoas.reduce((newArray:any, actualArray) => {
+//   // const localArray = actualArray.sexo == 'F' && actualArray.idade >= 18 ? actualArray: ''
+//   // console.log(localArray);
+//   // return [...newArray, actualArray.cidade ];
+//  return newArray.push( actualArray.sexo == 'F' && actualArray.idade >= 18 ? actualArray: '');
+
+// }, { maioresSexoFeminino: []});
+
+// filtromaiorEFeminino = this.pessoas.reduce((acumulador: any, arrayAtual) => {
+//    arrayAtual.idade >= 18 && arrayAtual.sexo == 'F' ? acumulador.push(arrayAtual) : '';
+//    return acumulador
+// }, { pessoas: []})
  
+ 
+ /**
+  * Exemplo separando MASCULINO OU FEMININO
+  */
+
+  exercicioMascOuFem = this.pessoas.reduce((acumulador: any, atual) => {
+      const sexo = atual.sexo == 'M' ? 'M' : 'F';
+      acumulador[sexo].push(atual);
+    return acumulador;
+  }, {M:[], F:[]})
+
+
+
 
 }

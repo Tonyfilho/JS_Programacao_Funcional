@@ -37,10 +37,10 @@ export class FilterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.table(this.mult2);
-    console.table(this.mult2b);
-    console.table(this.filMapJuntos);
-    console.table(this.removeNumerosDuplicados);
+    // console.table(this.mult2);
+    // console.table(this.mult2b);
+    // console.table(this.filMapJuntos);
+    // console.table(this.removeNumerosDuplicados);
   }
   // FILTER() permite filtrar algumas  informações, seja de um OBJETO ou de um ARRAY
   // O Filter() Retorna um novo Array filtrado do q for TRUE

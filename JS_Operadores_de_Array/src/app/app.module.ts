@@ -5,13 +5,17 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { FilterComponent } from './filter/filter.component';
 import { ReduceComponent } from './reduce/reduce.component';
+import { ReduceExerciciosComponent } from './reduce/reduce-exercicios/reduce-exercicios.component';
+import { FlatComponent } from './flat/flat.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     FilterComponent,
-    ReduceComponent
+    ReduceComponent,
+    ReduceExerciciosComponent,
+    FlatComponent
   ],
   imports: [
     BrowserModule
