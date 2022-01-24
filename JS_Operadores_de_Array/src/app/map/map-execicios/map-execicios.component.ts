@@ -92,10 +92,15 @@ export class MapExeciciosComponent implements OnInit {
     /**
      * REDUCE fazer a função do Map e Retorna somente Numeros multiplicados por 2
      */
-     this.numerosReduceVezes2 = this.numeros.reduce((novo2: number[], atual, index) => {            
-       novo2.push(atual * 2)
+     this.numerosReduceVezes2 = this.numeros.reduce((novo2: number[], atual) => {
+      novo2.push(atual * 2) 
       return novo2;
     }, []);
+
+  //   this.numerosReduceVezes2 = this.numeros.reduce((novo2: number[], atual, index) => {            
+  //     novo2.push(atual * 2)
+  //    return novo2;
+  //  }, []);
 
     /**
      * Filtra e Retorna somente Numeros PARES
