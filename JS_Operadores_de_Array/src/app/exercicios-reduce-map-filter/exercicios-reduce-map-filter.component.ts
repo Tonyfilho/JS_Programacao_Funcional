@@ -32,6 +32,9 @@ export class ExerciciosReduceMapFilterComponent implements OnInit {
   /**
    * Exercicios FILTER(), MAP(); REDUCE() e SPREAD [...]
    */
+  usuario!: string[];
+  usuarios!: string[];
+
   usuariosResposta = [
     {
       nome: 'tony',
@@ -124,7 +127,20 @@ export class ExerciciosReduceMapFilterComponent implements OnInit {
       sexo: 'F',
     },
   ];
-  constructor() { }
+  constructor() {
+     /**
+      * Fintrando por Usuario
+      */
+     this.usuario = this.usuariosResposta.filter(use => use.nome == 'debora').flatMap(data => data.nome);
+     /**
+      * Fintrando por Usuarios
+      */
+     this.usuarios = this.usuariosResposta.filter(user => user.nome).flatMap(user => user.nome);
 
-  ngOnInit(): void { }
+   }
+
+  ngOnInit(): void {
+    console.log(this.usuario);
+    console.log(this.usuarios);
+   }
 }
