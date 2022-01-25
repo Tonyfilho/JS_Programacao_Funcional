@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
+interface IPessoas {
+  nome: string;
+  idade: number;
+  cidade: string;
+  sexo: string;
+}
+interface IPessoasMaiores {
+  maiores: IPessoas[];
+}
 @Component({
   selector: 'app-map-execicios',
   templateUrl: './map-execicios.component.html',
@@ -13,6 +22,9 @@ export class MapExeciciosComponent implements OnInit {
   numerosReduceVezes2!: number[];
   numerosFilterPares!: number[];
   numerosReducePares!: number[];
+  pessoasFemininoMaiores = new Object();
+  pessoasMasculinoMenoresSemSpread!: object;
+  pessoasMasculinoMenoresComSpread!: object;
   Pares!: any[];
   usuariosResposta = [
     {
@@ -56,6 +68,56 @@ export class MapExeciciosComponent implements OnInit {
       ],
     },
   ];
+  pessoas: IPessoas[] = [
+    {
+      nome: 'Ayrton',
+      idade: 27,
+      cidade: 'Setubal',
+      sexo: 'M',
+    },
+    {
+      nome: 'João',
+      idade: 14,
+      cidade: 'Lisboa',
+      sexo: 'M',
+    },
+    {
+      nome: 'Maria',
+      idade: 23,
+      cidade: 'Setubal',
+      sexo: 'F',
+    },
+    {
+      nome: 'Joana',
+      idade: 21,
+      cidade: 'Lisboa',
+      sexo: 'F',
+    },
+    {
+      nome: 'Lucas',
+      idade: 32,
+      cidade: 'Lisboa',
+      sexo: 'M',
+    },
+    {
+      nome: 'Mateus',
+      idade: 15,
+      cidade: 'QdoAnjo',
+      sexo: 'M',
+    },
+    {
+      nome: 'Isa',
+      idade: 23,
+      cidade: 'Setubal',
+      sexo: 'F',
+    },
+    {
+      nome: 'Luiza',
+      idade: 17,
+      cidade: 'QdoAnjo',
+      sexo: 'F',
+    },
+  ];
   constructor() {
     /**
      * Exercicios de MAP e FILTER
@@ -92,15 +154,10 @@ export class MapExeciciosComponent implements OnInit {
     /**
      * REDUCE fazer a função do Map e Retorna somente Numeros multiplicados por 2
      */
-     this.numerosReduceVezes2 = this.numeros.reduce((novo2: number[], atual) => {
-      novo2.push(atual * 2) 
+    this.numerosReduceVezes2 = this.numeros.reduce((novo2: number[], atual) => {
+      novo2.push(atual * 2);
       return novo2;
     }, []);
-
-  //   this.numerosReduceVezes2 = this.numeros.reduce((novo2: number[], atual, index) => {            
-  //     novo2.push(atual * 2)
-  //    return novo2;
-  //  }, []);
 
     /**
      * Filtra e Retorna somente Numeros PARES
@@ -114,15 +171,74 @@ export class MapExeciciosComponent implements OnInit {
       atual % 2 === 0 ? novo.push(atual) : null;
       return novo;
     }, []);
+
+    /**
+     * fix erros nas funçoes com reduce,  faltava passar o OBJETO no PUSH()
+     */
+    
+
+    this.pessoasFemininoMaiores = this.pessoas.reduce(
+      (novoArray: IPessoasMaiores, actualArray, index) => {
+        /**
+       * A 1º Linha de a Baixo é Sem Tipagem, do tipo ANY onde  a var novoArray: ANY, tenho que INSERIR o caminho da OBJETO
+       actualArray.sexo == 'F' && actualArray.idade >= 18 ? novoArray.maiores.push(actualArray): null;
+       */
+        actualArray.sexo == 'F' && actualArray.idade >= 18
+          ? novoArray.maiores.push(actualArray)
+          : null;
+
+        return novoArray;
+      },
+      { maiores: [] }
+    );
+    //Reduce SEM spread 
+
+    this.pessoasMasculinoMenoresSemSpread = this.pessoas.reduce(
+      (acumulador: any, arrayAtual) => {
+        arrayAtual.idade <= 18 && arrayAtual.sexo == 'M'
+          ? acumulador.pessoas.push(arrayAtual)
+          : '';
+        return acumulador;
+      },
+      { pessoas: [] }
+    );
+
+    //Reduce COM spread 
+    this.pessoasMasculinoMenoresComSpread = this.pessoas.reduce((acumulador: IPessoasMaiores, arrayAtual: IPessoas) => {
+       [...acumulador.maiores, arrayAtual.idade <= 18 && arrayAtual.sexo == 'M' ? acumulador.maiores.push(arrayAtual): null]
+      return acumulador;
+    }, { maiores: []})
   }
 
   ngOnInit(): void {
-    console.table(this.filtraNome);
-    console.table(this.filtraEMapearNomeEResposta);
-    console.table(this.filtraEMapeaReduceNomeResposta);
-    console.table(this.numerosMapVezes2);
-    console.table(this.numerosFilterPares);
-    console.log('REDUCE',this.numerosReduceVezes2);
-    console.table(this.numerosReducePares);
+    // console.table(this.filtraNome);
+    // console.table(this.filtraEMapearNomeEResposta);
+    // console.table(this.filtraEMapeaReduceNomeResposta);
+    // console.table(this.numerosMapVezes2);
+    // console.table(this.numerosFilterPares);
+    // console.log('REDUCE',this.numerosReduceVezes2);
+    // console.table(this.numerosReducePares);
+    console.log('pessoasFemininoMaiores', this.pessoasFemininoMaiores);
+    console.log('pessoasMasculinoMenoresSemSpread', this.pessoasMasculinoMenoresSemSpread);
+    console.log('pessoasMasculinoMenoresSemSpread', this.pessoasMasculinoMenoresComSpread);
   }
+
+  /**
+   * fix erros nas funçoes com reduce,  faltava passar o OBJETO no PUSH()
+   */
+  //Reduce com spread
+  pessoasLocais = this.pessoas.reduce(
+    (novoArray: IPessoasMaiores, actualArray, index) => {
+      /**
+         * A 1º Linha de a Baixo é Sem Tipagem, do tipo ANY onde  a var novoArray: ANY, tenho que INSERIR o caminho da OBJETO
+         actualArray.sexo == 'F' && actualArray.idade >= 18 ? novoArray.maiores.push(actualArray): null;
+         */
+      actualArray.sexo == 'F' && actualArray.idade >= 18
+        ? novoArray.maiores.push(actualArray)
+        : null;
+
+      return novoArray;
+    },
+    { maiores: [] }
+  );
 }
