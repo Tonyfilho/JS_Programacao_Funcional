@@ -64,7 +64,7 @@ export class ReduceExerciciosComponent implements OnInit {
            acumCidade[array.cidade] = new Array();
        }
 
-        // acumCidade[array.cidade].push(array);
+        acumCidade[array.cidade].push(array);
     return acumCidade;
     }, {})
     

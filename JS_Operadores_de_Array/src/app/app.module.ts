@@ -8,7 +8,10 @@ import { ReduceComponent } from './reduce/reduce.component';
 import { ReduceExerciciosComponent } from './reduce/reduce-exercicios/reduce-exercicios.component';
 import { FlatComponent } from './flat/flat.component';
 import { MapExeciciosComponent } from './map/map-execicios/map-execicios.component';
-import { ExerciciosReduceMapFilterComponent } from './exercicios-reduce-map-filter/exercicios-reduce-map-filter.component';
+import { ExerciciosReduceMapFilterComponent } from './exercicios/exercicios-reduce-map-filter/exercicios-reduce-map-filter.component';
+import { ReduceObjectEntriesComponent } from './exercicios/reduce-object-entries/reduce-object-entries.component';
+
+
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { ExerciciosReduceMapFilterComponent } from './exercicios-reduce-map-filt
     ReduceExerciciosComponent,
     FlatComponent,
     MapExeciciosComponent,
-    ExerciciosReduceMapFilterComponent
+    ExerciciosReduceMapFilterComponent,
+    ReduceObjectEntriesComponent
+    
+    
   ],
   imports: [
     BrowserModule
