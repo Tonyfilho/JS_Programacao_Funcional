@@ -13,10 +13,11 @@ export class ReduceObjectEntriesComponent implements OnInit {
    * Exercicios de REDUCE e ENTRIES
    */
   objetoENTRIES = Object;
-  cidade!: object;
-  cidadesReduceComTernario!: object;
+  cidadesReduce!: IPessoas[];
+  cidadesReduceComTernario!: IPessoas[];
   cidadeUsandoEntries!: IPessoas[];
-  sexo!: object;
+  sexoUsandoEntries!: IPessoas[];
+  sexoReduce!: IPessoas[];
 
   pessoas: IPessoas[] = [
     {
@@ -75,7 +76,7 @@ export class ReduceObjectEntriesComponent implements OnInit {
      * e depois passou a funcionar, mesmo com o Objeto vazio
      */
 
-    this.cidade = this.pessoas.reduce(
+    this.cidadesReduce = this.pessoas.reduce(
       (acumulador: any, atual, index: number) => {
         if (!acumulador[atual.cidade]) {
           acumulador[atual.cidade] = new Array();
@@ -99,20 +100,43 @@ export class ReduceObjectEntriesComponent implements OnInit {
       {}
     );
     /**
-     * ENTRIES()
+     * REDUCE() onde separamos por CIDADES, usando ternario
      */
-   this.cidadeUsandoEntries = this.objetoENTRIES.entries(this.pessoas).map(obj => obj[1]).map(data => data).filter(data => data.cidade == 'Lisboa');
-   
-
+    this.sexoReduce = this.pessoas.reduce((acumulador: any, atualArray) => {
+      acumulador[atualArray.sexo] == null
+        ? (acumulador[atualArray.sexo] = new Array())
+        : null;
+      acumulador[atualArray.sexo].push(atualArray);
+      return acumulador;
+    }, {});
+    
+    /**
+     * ENTRIES() para cidade de Lisboa
+     */
+    this.cidadeUsandoEntries = this.objetoENTRIES
+      .entries(this.pessoas)
+      .map((obj) => obj[1])
+      .map((data) => data)
+      .filter((data) => data.cidade == 'Lisboa');
+    /**
+     * ENTRIES() para sexo Masculino
+     */
+    this.sexoUsandoEntries = this.objetoENTRIES
+      .entries(this.pessoas)
+      .map((obj) => obj[1])
+      .map((obj) => obj)
+      .filter((sex) => sex.sexo == 'M');
   }
 
   ngOnInit(): void {
-    console.group('Reduce para Cidades');
-    console.log(this.cidade);
+    console.group('Reduce Agrupando para Cidades, Sexos');
+    console.log(this.cidadesReduce);
     console.log(this.cidadesReduceComTernario);
+    console.log(this.sexoReduce)
     console.groupEnd();
-    console.group('Objeto Entrie filtrando  Cidades');
-    console.log(this.cidadeUsandoEntries);    
+    console.group('Objeto Entrie filtrando  Cidades, Sexo Masculino');
+    console.log(this.cidadeUsandoEntries);
+    console.log(this.sexoUsandoEntries);
     console.groupEnd();
   }
 }
