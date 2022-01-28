@@ -10,6 +10,7 @@ import { FlatComponent } from './flat/flat.component';
 import { MapExeciciosComponent } from './map/map-execicios/map-execicios.component';
 import { ExerciciosReduceMapFilterComponent } from './exercicios/exercicios-reduce-map-filter/exercicios-reduce-map-filter.component';
 import { ReduceObjectEntriesComponent } from './exercicios/reduce-object-entries/reduce-object-entries.component';
+import { ReduceObjectEntries2Component } from './exercicios/reduce-object-entries2/reduce-object-entries2.component';
 
 
 
@@ -23,7 +24,8 @@ import { ReduceObjectEntriesComponent } from './exercicios/reduce-object-entries
     FlatComponent,
     MapExeciciosComponent,
     ExerciciosReduceMapFilterComponent,
-    ReduceObjectEntriesComponent
+    ReduceObjectEntriesComponent,
+    ReduceObjectEntries2Component
     
     
   ],

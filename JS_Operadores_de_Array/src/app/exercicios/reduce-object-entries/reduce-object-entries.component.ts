@@ -69,6 +69,7 @@ export class ReduceObjectEntriesComponent implements OnInit {
       sexo: 'F',
     },
   ];
+  
   constructor() {
     /**
      * REDUCE() onde separaremos por cidades o OBJETO, Não sei o por que,
@@ -109,7 +110,7 @@ export class ReduceObjectEntriesComponent implements OnInit {
       acumulador[atualArray.sexo].push(atualArray);
       return acumulador;
     }, {});
-    
+
     /**
      * ENTRIES() para cidade de Lisboa
      */
@@ -126,13 +127,14 @@ export class ReduceObjectEntriesComponent implements OnInit {
       .map((obj) => obj[1])
       .map((obj) => obj)
       .filter((sex) => sex.sexo == 'M');
+  
   }
 
   ngOnInit(): void {
     console.group('Reduce Agrupando para Cidades, Sexos');
     console.log(this.cidadesReduce);
     console.log(this.cidadesReduceComTernario);
-    console.log(this.sexoReduce)
+    console.log(this.sexoReduce);
     console.groupEnd();
     console.group('Objeto Entrie filtrando  Cidades, Sexo Masculino');
     console.log(this.cidadeUsandoEntries);
