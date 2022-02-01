@@ -11,6 +11,7 @@ import { MapExeciciosComponent } from './map/map-execicios/map-execicios.compone
 import { ExerciciosReduceMapFilterComponent } from './exercicios/exercicios-reduce-map-filter/exercicios-reduce-map-filter.component';
 import { ReduceObjectEntriesComponent } from './exercicios/reduce-object-entries/reduce-object-entries.component';
 import { ReduceObjectEntries2Component } from './exercicios/reduce-object-entries2/reduce-object-entries2.component';
+import { ReduceEntriesFilterIndexOfMapComponent } from './exercicios/reduce-entries-filter-index-of-map/reduce-entries-filter-index-of-map.component';
 
 
 
@@ -25,7 +26,8 @@ import { ReduceObjectEntries2Component } from './exercicios/reduce-object-entrie
     MapExeciciosComponent,
     ExerciciosReduceMapFilterComponent,
     ReduceObjectEntriesComponent,
-    ReduceObjectEntries2Component
+    ReduceObjectEntries2Component,
+    ReduceEntriesFilterIndexOfMapComponent
     
     
   ],
