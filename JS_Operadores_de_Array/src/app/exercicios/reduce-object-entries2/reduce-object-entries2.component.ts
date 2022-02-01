@@ -6,7 +6,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReduceObjectEntries2Component implements OnInit {
   objetoENTRIES = Object;
-  pessoasECompetencias: any[] = [
+  competenciasCursosEntries!: any[];
+  competenciaCursosUsuarioEntries!: any[];
+  competenciasCursosReduce!: any[];
+  competenciaCursosUsuarioReduce!: any[];
+  pessoasECompetencias = [
     {
       nome: 'Ayrton',
       idade: 27,
@@ -23,7 +27,7 @@ export class ReduceObjectEntries2Component implements OnInit {
       cidade: 'Lisboa',
       sexo: 'M',
       competencias: {
-        cursos: ['java', 'Js', 'spring'],
+        cursos: ['java', 'Phyton', 'spring'],
         hobbys: ['wineHouses', 'cozinhar', 'voar de RC'],
       },
     },
@@ -33,7 +37,7 @@ export class ReduceObjectEntries2Component implements OnInit {
       cidade: 'Setubal',
       sexo: 'F',
       competencias: {
-        cursos: ['java', 'Js', 'spring'],
+        cursos: ['C#', 'Js', 'spring'],
         hobbys: ['wineHouses', 'cozinhar', 'voar de RC'],
       },
     },
@@ -90,12 +94,50 @@ export class ReduceObjectEntries2Component implements OnInit {
   ];
   constructor() {
     /**
-     * ENTRIES() com Objeto complexo PessoasECompetencias
+     * ENTRIES() com Objeto complexo PessoasECompetencias,
+     * Removemos os dados os repetidos do ARRAY usando FILTER() e INDEXOF()
      */
-    this.objetoENTRIES
+    this.competenciasCursosEntries = this.objetoENTRIES
       .entries(this.pessoasECompetencias)
-      .flatMap((obj) => obj[1]);
+      .flatMap((obj) => obj[1])
+      .map((obj) => obj.competencias)
+      .map((obs) => obs.cursos)
+      .flat().filter((filtro: string, index: number, arrayAtual: string[]) => {
+         return arrayAtual.indexOf(filtro) === index;
+      });
+
+    this.competenciaCursosUsuarioEntries = this.objetoENTRIES
+      .entries(this.pessoasECompetencias)
+      .flatMap((obj) => obj[1])
+      .filter((dataName) => dataName.nome == 'Joana')
+      .map((obj) => obj.competencias)
+      .flatMap((cursos) => cursos.cursos);
+    /**
+     * REDUCE() com Objeto complexo na var competenciasCursosReduce e
+     * competenciaCursosUsuarioReduce
+     * Removemos os dados os repetidos do ARRAY usando FILTER() e INDEXOF()
+     */
+   this.competenciasCursosReduce =   this.pessoasECompetencias.reduce((acumulador: any, arrayatual) => {        
+        acumulador.push(arrayatual.competencias.cursos);
+        return acumulador.flat().filter((filtro: string, index: number, array: string[] )=> {
+          return array.indexOf(filtro) === index
+           });
+      },[]);
+   this.competenciaCursosUsuarioReduce = this.pessoasECompetencias.filter(user => user.nome == 'Joana').reduce((acumulador: any, arrayAtual) => {
+      acumulador.push(arrayAtual.competencias.cursos);
+      return acumulador.flat();
+    },[])  
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.group('Objetos complexo Array de competencia com ENTRIES()');
+    console.log(this.competenciasCursosEntries);
+    console.log(this.competenciaCursosUsuarioEntries);
+    console.groupEnd();
+    console.group('Objetos complexo Array de competencia com REDUCE()');
+    console.log(this.competenciasCursosReduce);
+    console.log(this.competenciaCursosUsuarioReduce);
+    
+    console.groupEnd();
+  }
 }
