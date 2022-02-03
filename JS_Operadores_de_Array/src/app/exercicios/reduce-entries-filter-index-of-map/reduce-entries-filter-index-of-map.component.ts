@@ -12,6 +12,8 @@ export class ReduceEntriesFilterIndexOfMapComponent implements OnInit {
   viagensPassagensAereas!: {};
   viagensReservas!: string[];
   hobbys!: string[];
+  hobbysMapFlatMapFilter!: string[];
+  viagensMapFilterSpread!: string[];
 
   pessoasECompetencias = [
     {
@@ -94,7 +96,7 @@ export class ReduceEntriesFilterIndexOfMapComponent implements OnInit {
           reservas: ['brasil', 'portugal', 'espanha'],
           passagens: {
             terrestres: ['vitoria X lisboa', 'setubal X porto'],
-            maritimas: ['são paulo X barcelona', 'salvador X lisboa'],
+            maritimas: ['são paulo X barcelona', 'salvador X usa'],
           },
         },
       },
@@ -111,7 +113,7 @@ export class ReduceEntriesFilterIndexOfMapComponent implements OnInit {
           reservas: ['brasil', 'portugal', 'espanha'],
           passagens: {
             terrestres: ['vitoria X manaus', 'setubal X porto'],
-            maritimas: ['são paulo X barcelona', 'salvador X lisboa'],
+            maritimas: ['são paulo X barcelona', 'vitoria X lisboa'],
           },
         },
       },
@@ -128,7 +130,7 @@ export class ReduceEntriesFilterIndexOfMapComponent implements OnInit {
           reservas: ['brasil', 'portugal', 'espanha'],
           passagens: {
             terrestres: ['vitoria X manaus', 'setubal X porto'],
-            maritimas: ['são paulo X barcelona', 'salvador X lisboa'],
+            maritimas: ['espirito santo X barcelona', 'salvador X lisboa'],
           },
         },
       },
@@ -145,7 +147,7 @@ export class ReduceEntriesFilterIndexOfMapComponent implements OnInit {
           reservas: ['brasil', 'portugal', 'espanha'],
           passagens: {
             terrestres: ['vitoria X manaus', 'setubal X porto'],
-            maritimas: ['são paulo X barcelona', 'salvador X lisboa'],
+            maritimas: ['são paulo X barcelona', 'setubal X ilhas'],
           },
         },
       },
@@ -216,6 +218,27 @@ export class ReduceEntriesFilterIndexOfMapComponent implements OnInit {
       .filter((filtro: string, index: number, array) => {
         return array.indexOf(filtro) === index;
       });
+
+    /**
+     * Usaremos  FlatMap e Filter para buscar Viagens e Reservas dentro do Objeto complexo
+     */
+    this.hobbysMapFlatMapFilter = this.pessoasECompetencias
+      .flatMap((objs) => objs.competencias)
+      .flatMap((obj) => obj.viagens)
+      .map((obj) => obj.passagens.maritimas)
+      .flat()
+      .filter((filter: string, index: number, arraAtual: string[]) => {
+        return arraAtual.indexOf(filter) === index;
+      });
+    /**
+     * Usaremos  MAp e Filter para buscar Viagens e Reservas dentro do Objeto complexo
+     */
+
+    this.viagensMapFilterSpread = this.pessoasECompetencias
+      .map((obj) => obj.competencias.viagens.passagens)
+      .flatMap((obj) => [...obj.maritimas, ...obj.terrestres]).filter((filtro: string, index: number, array: string[]) =>{
+        return array.indexOf(filtro) === index;
+      });
   }
 
   ngOnInit(): void {
@@ -235,6 +258,10 @@ export class ReduceEntriesFilterIndexOfMapComponent implements OnInit {
       'Usaremos ENTRIES para buscar hobbys dentro do Objeto complexo'
     );
     console.log('Competencias Hobby', this.hobbys);
+    console.log('hobbysMapFlatMapFilter', this.hobbysMapFlatMapFilter);
+    console.groupEnd();
+    console.group('Usaremos MAP para buscar hobbys dentro do Objeto complexo');
+    console.log('Competencias Hobby', this.viagensMapFilterSpread);    
     console.groupEnd();
   }
 }
